@@ -1,4 +1,4 @@
-image: archlinux/latest
+image: archlinux
 sources:
   - https://github.com/kubkon/openat2-check
 tasks:
