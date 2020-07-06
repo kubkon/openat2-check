@@ -1,0 +1,8 @@
+image: archlinux/latest
+sources:
+  - https://github.com/kubkon/openat2-check
+tasks:
+  - build: |
+      echo `uname -r`
+      cd openat2-check
+      cargo test
