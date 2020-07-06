@@ -20,6 +20,7 @@ pub struct OpenHow {
 
 const SIZEOF_OPEN_HOW: usize = std::mem::size_of::<OpenHow>();
 
+/// This is a test wrapper around openat2 syscall.
 pub fn openat2(dir: &File, path: &Path) -> io::Result<File> {
     let open_how = OpenHow {
         oflag: 0,
@@ -39,7 +40,7 @@ pub fn openat2(dir: &File, path: &Path) -> io::Result<File> {
     if rc == -1 {
         return Err(io::Error::last_os_error());
     }
-    Ok(File::from_raw_fd(rc as RawFd))
+    Ok(unsafe { File::from_raw_fd(rc as RawFd) })
 }
 
 #[cfg(test)]
@@ -47,6 +48,7 @@ mod test {
     use super::*;
     use std::env::current_dir;
     use std::fs::{self, OpenOptions};
+    use std::path::Path;
 
     #[test]
     fn smoke() {
@@ -60,6 +62,6 @@ mod test {
         fs::create_dir(cwd_path.join("hmm")).expect("could create 'hmm' subdir");
 
         // check openat2
-        openat2(cwd, "hmm").expect("openat2 should succeed");
+        openat2(&cwd, &Path::new("hmm")).expect("openat2 should succeed");
     }
 }
