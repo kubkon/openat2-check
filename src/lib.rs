@@ -40,7 +40,7 @@ pub fn openat2(dir: &File, path: &Path) -> io::Result<File> {
     if rc == -1 {
         return Err(io::Error::last_os_error());
     }
-    Ok(File::from_raw_fd(rc as RawFd))
+    Ok(unsafe { File::from_raw_fd(rc as RawFd) })
 }
 
 #[cfg(test)]
