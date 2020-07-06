@@ -4,5 +4,7 @@ sources:
 tasks:
   - build: |
       echo `uname -r`
+      curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+      export PATH=$PATH:$HOME/.cargo/bin
       cd openat2-check
       cargo test
