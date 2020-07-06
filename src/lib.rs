@@ -48,6 +48,7 @@ mod test {
     use super::*;
     use std::env::current_dir;
     use std::fs::{self, OpenOptions};
+    use std::path::Path;
 
     #[test]
     fn smoke() {
@@ -61,6 +62,6 @@ mod test {
         fs::create_dir(cwd_path.join("hmm")).expect("could create 'hmm' subdir");
 
         // check openat2
-        openat2(cwd, "hmm").expect("openat2 should succeed");
+        openat2(&cwd, &Path::new("hmm")).expect("openat2 should succeed");
     }
 }
