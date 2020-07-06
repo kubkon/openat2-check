@@ -20,6 +20,7 @@ pub struct OpenHow {
 
 const SIZEOF_OPEN_HOW: usize = std::mem::size_of::<OpenHow>();
 
+/// This is a test wrapper around openat2 syscall.
 pub fn openat2(dir: &File, path: &Path) -> io::Result<File> {
     let open_how = OpenHow {
         oflag: 0,
